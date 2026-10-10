@@ -6,11 +6,10 @@ Student ID: 67114264
 
 1. Hardware Baseline
 
-Exact OS/kernel version: [ENTER OUTPUT FROM uname -a OR profiler.py]
-Logical CPU cores: [ENTER CPU COUNT]
-CPU model: [ENTER MODEL NAME FROM lscpu]
-Total RAM: [ENTER TOTAL RAM FROM free -h OR profiler.py]
-
+Exact OS/kernel version: Linux 6.8.0-1064-azure
+Logical CPU cores: 2
+CPU model: 32-bit, 64-bit
+Total RAM: 7.76 GB
 The values reported by profiler.py should agree with lscpu and free -h because psutil and platform request the same operating-system resource information through Python.
 
 2. CPU Stress-Test Observation

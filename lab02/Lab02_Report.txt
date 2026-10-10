@@ -6,9 +6,9 @@ Student ID: 67114264
 
 1. Execution Time Comparison
 
-- Sequential Time: [ENTER YOUR MEASURED TIME] seconds
-- Multithreading Time: [ENTER YOUR MEASURED TIME] seconds
-- Multiprocessing Time: [ENTER YOUR MEASURED TIME] seconds
+- Sequential Time: 9.45 seconds
+- Multithreading Time: 9.60 seconds
+- Multiprocessing Time: 8.57 seconds
 
 These measurements must be copied from the same Codespace so the comparison uses identical hardware and system load.
 
