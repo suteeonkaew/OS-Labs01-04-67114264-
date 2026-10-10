@@ -1,0 +1,22 @@
+======================================================
+COE67-222 Operating Systems - Lab 01 Report
+Name: Sutee Onkaew
+Student ID: 67114264
+======================================================
+
+1. Hardware Baseline
+
+Exact OS/kernel version: [ENTER OUTPUT FROM uname -a OR profiler.py]
+Logical CPU cores: [ENTER CPU COUNT]
+CPU model: [ENTER MODEL NAME FROM lscpu]
+Total RAM: [ENTER TOTAL RAM FROM free -h OR profiler.py]
+
+The values reported by profiler.py should agree with lscpu and free -h because psutil and platform request the same operating-system resource information through Python.
+
+2. CPU Stress-Test Observation
+
+The Python stress test used approximately 100% of one logical CPU core, while the other cores remained mostly available. In htop, one CPU bar rose sharply, although the busy core could change when the OS scheduler moved the process between cores. It did not use every core at 100% because the program contains one CPU-bound Python execution stream.
+
+3. Machine-Learning Analysis
+
+Knowing the RAM limit prevents a 500,000-image dataset from being loaded all at once when it is larger than memory. Otherwise, the system may swap heavily, become very slow, or terminate the process because of insufficient memory. Knowing the CPU-core count also helps choose suitable worker and process counts for preprocessing and data loading. This makes the pipeline faster while avoiding excessive processes, memory use, and scheduling overhead.

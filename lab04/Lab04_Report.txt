@@ -1,0 +1,25 @@
+======================================================
+COE67-222 Operating Systems - Lab 04 Report
+Name: Sutee Onkaew
+Student ID: 67114264
+======================================================
+
+1. The Deadlock
+
+Model A acquires GPU 0 and keeps it, while Model B acquires GPU 1 and keeps it. Model A then requests GPU 1, which Model B holds. At the same time, Model B requests GPU 0, which Model A holds. Neither lock can be forcibly removed, and neither model releases its first lock while waiting. This forms the cycle Model A -> GPU 1 -> Model B -> GPU 0 -> Model A, satisfying the Circular Wait condition and preventing both threads from progressing.
+
+2. The Solution
+
+Both models are required to request GPU 0 before GPU 1. If Model A owns GPU 0, Model B must wait without holding GPU 1. Model A can therefore obtain GPU 1, finish, and release both locks. Model B then continues. Because no thread may hold the higher-order resource while waiting for the lower-order resource, a circular chain cannot form.
+
+3. Starvation vs. Deadlock
+
+The starvation script completes after three seconds and prints acquisition counts. The greedy models make substantial progress, while the polite model receives far fewer opportunities. In the deadlock script, both models stop making progress and the final completion message is never printed. Thus, starvation is unfair progress for one participant while the system continues; deadlock is no progress for the involved participants.
+
+A scheduler can use aging by gradually increasing the priority of a job the longer it waits. Even if Polite_Model begins with low priority, its priority eventually becomes high enough to be scheduled or granted the resource before the greedy jobs. After it runs, its waiting time and priority can be reset, providing fairness without permanently giving it the highest priority.
+
+4. Deadlock Detection and Recovery
+
+The timeout limits how long Model A waits to acquire GPU 1. Failure to acquire the lock within two seconds is treated as evidence that the wait is abnormally long and a circular dependency may exist. This approximates a watchdog or deadlock-detection policy instead of allowing an indefinite block.
+
+After the timeout, Model A performs recovery by releasing GPU 0 and returning from its function. This rollback breaks the circular wait. Model B can then acquire GPU 0, complete its work, and release both resources, so the rest of the system continues.

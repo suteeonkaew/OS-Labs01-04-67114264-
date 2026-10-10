@@ -1,0 +1,23 @@
+======================================================
+COE67-222 Operating Systems - Lab 02 Report
+Name: Sutee Onkaew
+Student ID: 67114264
+======================================================
+
+1. Execution Time Comparison
+
+- Sequential Time: [ENTER YOUR MEASURED TIME] seconds
+- Multithreading Time: [ENTER YOUR MEASURED TIME] seconds
+- Multiprocessing Time: [ENTER YOUR MEASURED TIME] seconds
+
+These measurements must be copied from the same Codespace so the comparison uses identical hardware and system load.
+
+2. System Observation (htop)
+
+During multithreading, the CPU-bound Python threads shared one interpreter and one GIL. htop therefore showed roughly one core's worth of sustained CPU work, although the OS could move threads between cores. During multiprocessing, each process had a separate interpreter and GIL, so the OS scheduled them across multiple cores. Several or all CPU bars became busy at the same time.
+
+3. Analysis: The GIL
+
+Multithreading did not make this CPU-bound loop faster because CPython's Global Interpreter Lock allows only one thread at a time to execute Python bytecode in a process. Thread creation, context switching, and lock coordination may even add overhead. Multiprocessing is more suitable because each process has its own interpreter and GIL, allowing true parallel execution on different CPU cores. Its trade-offs are higher memory use and process-management or communication overhead.
+
+Zombie-process note: A terminated child remains a zombie until its parent collects the exit status. The parent should call os.wait() or os.waitpid(); the included fork_zombie_fixed.py demonstrates this correction.

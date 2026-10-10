@@ -1,0 +1,19 @@
+======================================================
+COE67-222 Operating Systems - Lab 03 Report
+Name: Sutee Onkaew
+Student ID: 67114264
+======================================================
+
+1. The Race Condition
+
+The increment is a read-modify-write sequence rather than one indivisible operation. Two threads can read the same old value before either writes its result. The OS scheduler may pause one thread after its read and run the other thread, so both later write the same incremented value. One update is lost, making the final weight lower than 200.
+
+2. Mutex vs. Semaphore
+
+The mutex provides mutual exclusion for the critical section that accesses the shared buffer and changes in_index or out_index. Only one thread may read or modify this shared state at a time.
+
+The empty semaphore counts free buffer slots. A producer must wait when this count is zero. The full semaphore counts items ready for consumption. A consumer must wait when this count is zero. A mutex alone can prevent simultaneous access, but it does not represent how many empty or full slots exist. The counting semaphores provide both capacity tracking and correct blocking.
+
+3. Deadlock Awareness
+
+If the producer acquired mutex before empty, it could hold the mutex while waiting for an empty slot when the buffer was full. The consumer would need the same mutex to remove an item and create an empty slot, but it could not acquire it. The producer would wait for the consumer, and the consumer would wait for the producer's mutex, causing deadlock. Acquiring empty before mutex ensures the producer never holds the mutex while waiting for capacity.
